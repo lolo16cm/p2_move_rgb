@@ -1,0 +1,22 @@
+<launch>
+  <env name="TURTLEBOT3_MODEL" value="waffle_pi"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find p2_chang)/misc/ball_world.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+  <param name="robot_description"
+         command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_waffle_pi.urdf.xacro" />
+  <node pkg="gazebo_ros"
+        type="spawn_model"
+        name="spawn_turtlebot3"
+        args="-urdf -param robot_description -model turtlebot3_waffle_pi -x 0 -y 0 -z 0.05"
+        output="screen" />
+  <node pkg="p2_chang"
+        type="p2b_follow_ball.py"
+        name="ball_follower"
+        output="screen"/>
+</launch>

@@ -1,0 +1,14 @@
+<launch>
+  <!-- Step 1: Start robot base -->
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+
+  <!-- Step 2: Start RGB camera -->
+  <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+
+  <!-- Step 4: Start depth camera -->
+  <include file="$(find astra_launch)/launch/astra.launch"/>
+
+  <!-- Primary ball follower — follows RED ball only -->
+  <node name="ball_follower" pkg="p2_chang"
+        type="p2b_follow.py" output="screen"/>
+</launch>
